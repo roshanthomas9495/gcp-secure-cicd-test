@@ -34,7 +34,7 @@ steps:
       -image=$(/bin/cat image-digest.txt) \
       -policy=./policy/kritis/vulnz-signing-policy.yaml \
       -kms_key_name=${_KMS_KEY_NAME} \
-      -kms_digest_alg=${_KMS_DIGEST_ALG} 
+      -kms_digest_alg=${_KMS_DIGEST_ALG} \ 
       -note_name=${_NOTE_NAME}
     waitFor: ['push']
     id: vulnsign
@@ -60,5 +60,5 @@ options:
 substitutions:
    _KMS_KEY_NAME: "test-key"
    _KMS_DIGEST_ALG: "4096 bit RSA - PKCS#1 v1.5 padding - SHA512 Digest"
-   _NOTE_NAME: "projects/jmc-devsecops/notes/built-by-cloud-build"
+   _NOTE_NAME: "projects/jmc-devsecops/notes/secure-cicd-attestor-note"
     
