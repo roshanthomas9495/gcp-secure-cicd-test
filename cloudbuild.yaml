@@ -35,7 +35,7 @@ steps:
       -policy=./policy/kritis/vulnz-signing-policy.yaml \
       -kms_key_name=${_KMS_KEY_NAME} \
       -kms_digest_alg=${_KMS_DIGEST_ALG} 
-      -note_name=${_NOTE_NAME}
+      #-note_name=${_NOTE_NAME}
     waitFor: ['push']
     id: vulnsign
   # Create release in Google Cloud Deploy
