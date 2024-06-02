@@ -61,5 +61,5 @@ options:
 substitutions:
    _KMS_KEY_NAME: "projects/jmc-devsecops/locations/us-central1/keyRings/gcp-cicd-demo/cryptoKeys/test-key/cryptoKeyVersions/1"
    _KMS_DIGEST_ALG: "SHA512"
-   _NOTE_NAME: "projects/jmc-devsecops/notes/secure-cicd-attestor-note"
+   _NOTE_NAME: "projects/jmc-devsecops/notes/jmccicd-attestor-newnote"
     
