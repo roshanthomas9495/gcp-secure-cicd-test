@@ -34,9 +34,8 @@ steps:
       -image=$(/bin/cat image-digest.txt) \
       -policy=./policy/kritis/vulnz-signing-policy.yaml \
       -kms_key_name=${_KMS_KEY_NAME} \
-      -kms_digest_alg=${_KMS_DIGEST_ALG} \ 
-      -note_name=${_NOTE_NAME} \
-      -attestation_project="jmc-devdecops"
+      -kms_digest_alg=${_KMS_DIGEST_ALG} \
+      -note_name=${_NOTE_NAME}
     waitFor: ['push']
     id: vulnsign
   # Create release in Google Cloud Deploy
