@@ -18,7 +18,7 @@ gcloud beta container --project "${PROJECT_ID}" clusters create "test-sec" \
 --subnetwork "projects/${PROJECT_ID}/regions/asia-south1/subnetworks/default" --no-enable-intra-node-visibility \
 --default-max-pods-per-node "110" --no-enable-master-authorized-networks \
 --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 \
---enable-shielded-nodes --node-locations "asia-south1-a" --binauthz-evaluation-mode --async
+--enable-shielded-nodes --node-locations "asia-south1-a" --binauthz-evaluation-mode=PROJECT_SINGLETON_POLICY_ENFORCE --async
 
 
 # Prod cluster
@@ -33,4 +33,4 @@ gcloud beta container --project "$PROJECT_ID" clusters create "prod-sec" \
 --subnetwork "projects/$PROJECT_ID/regions/asia-south1/subnetworks/default" --no-enable-intra-node-visibility \
 --default-max-pods-per-node "110" --no-enable-master-authorized-networks \
 --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 \
---enable-shielded-nodes --node-locations "asia-south1-a" --binauthz-evaluation-mode --async
+--enable-shielded-nodes --node-locations "asia-south1-a" --binauthz-evaluation-mode=PROJECT_SINGLETON_POLICY_ENFORCE --async
