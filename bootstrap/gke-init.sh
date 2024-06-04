@@ -14,9 +14,9 @@ gcloud beta container --project "${PROJECT_ID}" clusters create "test-sec" \
 --disk-type "pd-standard" --disk-size "30" --metadata disable-legacy-endpoints=true \
 --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" \
 --max-pods-per-node "110" --num-nodes "1" --logging=SYSTEM,WORKLOAD --monitoring=SYSTEM \
---enable-ip-alias --network "projects/${PROJECT_ID}/global/networks/default" \
---subnetwork "projects/${PROJECT_ID}/regions/us-central1/subnetworks/default" --no-enable-intra-node-visibility \
---default-max-pods-per-node "110" --no-enable-master-authorized-networks \
+--enable-ip-alias --network "projects/${PROJECT_ID}/global/networks/stagenetwork " \
+--subnetwork "projects/${PROJECT_ID}/regions/us-central1/subnetworks/stagenetwork " --no-enable-intra-node-visibility \
+--stagenetwork -max-pods-per-node "110" --no-enable-master-authorized-networks \
 --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 \
 --enable-shielded-nodes --node-locations "us-central1-a" --binauthz-evaluation-mode=PROJECT_SINGLETON_POLICY_ENFORCE --async
 
@@ -29,8 +29,8 @@ gcloud beta container --project "$PROJECT_ID" clusters create "prod-sec" \
 --disk-type "pd-standard" --disk-size "30" --metadata disable-legacy-endpoints=true \
 --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" \
 --max-pods-per-node "110" --num-nodes "1" --logging=SYSTEM,WORKLOAD --monitoring=SYSTEM \
---enable-ip-alias --network "projects/$PROJECT_ID/global/networks/default" \
---subnetwork "projects/$PROJECT_ID/regions/us-central1/subnetworks/default" --no-enable-intra-node-visibility \
---default-max-pods-per-node "110" --no-enable-master-authorized-networks \
+--enable-ip-alias --network "projects/$PROJECT_ID/global/networks/stagenetwork " \
+--subnetwork "projects/$PROJECT_ID/regions/us-central1/subnetworks/stagenetwork " --no-enable-intra-node-visibility \
+--stagenetwork -max-pods-per-node "110" --no-enable-master-authorized-networks \
 --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 \
 --enable-shielded-nodes --node-locations "us-central1-a" --binauthz-evaluation-mode=PROJECT_SINGLETON_POLICY_ENFORCE --async
