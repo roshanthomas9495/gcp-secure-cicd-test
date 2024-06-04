@@ -3,11 +3,11 @@
 steps:
   # Build and tag using commit sha
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '.', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/pop-stats/pop-stats:${COMMIT_SHA}', '-f', 'Dockerfile']
+    args: ['build', '.', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/pop-stats/pop-stats:${COMMIT_SHA}', '-f', 'Dockerfile']
     dir: 'app'
     id: build
   # Run api tests
-  - name: 'asia-south1-docker.pkg.dev/$PROJECT_ID/pop-stats/pop-stats:${COMMIT_SHA}'
+  - name: 'us-central1-docker.pkg.dev/$PROJECT_ID/pop-stats/pop-stats:${COMMIT_SHA}'
     entrypoint: python
     args: ["api_tests.py"]
     dir: 'app'
@@ -18,11 +18,11 @@ steps:
     args:
     - -c
     - |
-      docker push asia-south1-docker.pkg.dev/$PROJECT_ID/pop-stats/pop-stats:${COMMIT_SHA} &&
-      docker image inspect asia-south1-docker.pkg.dev/$PROJECT_ID/pop-stats/pop-stats:${COMMIT_SHA} --format '{{index .RepoDigests 0}}' > image-digest.txt &&
+      docker push us-central1-docker.pkg.dev/$PROJECT_ID/pop-stats/pop-stats:${COMMIT_SHA} &&
+      docker image inspect us-central1-docker.pkg.dev/$PROJECT_ID/pop-stats/pop-stats:${COMMIT_SHA} --format '{{index .RepoDigests 0}}' > image-digest.txt &&
       cat image-digest.txt
     id: push
-  - name: asia-south1-docker.pkg.dev/jmc-stage-prj/pop-stats/kritis-signer:alter
+  - name: us-central1-docker.pkg.dev/jmc-stage-prj/pop-stats/kritis-signer:alter
    #gcr.io/$PROJECT_ID/kritis-signer
     entrypoint: /bin/bash
     args:
@@ -46,19 +46,19 @@ steps:
     - |
       gcloud deploy releases create rel-${SHORT_SHA} \
       --delivery-pipeline=security-demo-pipelne \
-      --region=asia-south1 \
+      --region=us-central1 \
       --annotations=commitId=${REVISION_ID} \
       --images=pop-stats=$(/bin/cat image-digest.txt)
     waitFor: ['vulnsign']
 images:
-- asia-south1-docker.pkg.dev/$PROJECT_ID/pop-stats/pop-stats:${COMMIT_SHA}
+- us-central1-docker.pkg.dev/$PROJECT_ID/pop-stats/pop-stats:${COMMIT_SHA}
 options:
   requestedVerifyOption: VERIFIED
   pool:
-    name: 'projects/$PROJECT_ID/locations/asia-south1/workerPools/gcp-cicd-demo'
+    name: 'projects/$PROJECT_ID/locations/us-central1/workerPools/gcp-cicd-demo'
 # Set these variables in your trigger or directly in the substitutions stanza below: 
 substitutions:
-   _KMS_KEY_NAME: "projects/jmc-stage-prj/locations/asia-south1/keyRings/gcp-cicd-demo/cryptoKeys/test-key/cryptoKeyVersions/1"
+   _KMS_KEY_NAME: "projects/jmc-stage-prj/locations/us-central1/keyRings/gcp-cicd-demo/cryptoKeys/test-key/cryptoKeyVersions/1"
    _KMS_DIGEST_ALG: "SHA512"
    _NOTE_NAME: projects/jmc-stage-prj/notes/secure-cicd-attestor-note
      #projects/jmc-stage-prj/notes/vulnz-note
